@@ -1,6 +1,6 @@
 # Bitcoin Game Service
 
-## This Service was build using Typecript and Nodejs 
+## This Service was build using Typecript and Nodejs along with Dynamo DB for data store.
 
 ### Steps to start the Service
 
