@@ -11,6 +11,7 @@ class UserController {
   private _tablename = "game_user";
  
   constructor() {
+    this.createTable();
     this.intializeRoutes();
   }
  
@@ -121,6 +122,27 @@ class UserController {
     }else{
         response.send({"message": "Fail"});
     }
+  }
+
+  createTable = () => {
+    var params = {
+        TableName : this._tablename,
+        KeySchema: [       
+            { AttributeName: "name", KeyType: "HASH"},  //Partition key
+        ],
+        AttributeDefinitions: [       
+            { AttributeName: "name", AttributeType: "S" },
+        ],
+        BillingMode: "PAY_PER_REQUEST",
+    };
+    
+    client.createTable(params, function(err: any, data: any) {
+        if (err) {
+            console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Created table. Table description JSON:", JSON.stringify(data, null, 2));
+        }
+    });
   }
 
   fetchPrice = async() => {
